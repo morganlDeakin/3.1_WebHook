@@ -1,0 +1,26 @@
+int led = D6;
+int photosensor = A0;
+int analogvalue;
+
+
+void setup() 
+{
+    Serial.begin(9600);
+    pinMode(led, OUTPUT);
+    digitalWrite(led, HIGH);
+}
+
+void loop() 
+{
+    digitalWrite(led, HIGH);
+    analogvalue = analogRead(photosensor);
+    Serial.printlnf("%d", analogvalue);
+    Particle.publish("light", String(analogvalue), PRIVATE);
+    delay(20000);
+    
+    digitalWrite(led, LOW);
+    analogvalue = analogRead(photosensor);
+    Serial.printlnf("%d", analogvalue);
+    Particle.publish("light", String(analogvalue), PRIVATE);
+    delay(20000);
+}
